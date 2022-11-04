@@ -9,6 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "subscription_type")
 public class SubscriptionType {
@@ -25,45 +34,5 @@ public class SubscriptionType {
 	
 	private String productKey;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Long getAcessMonth() {
-		return acessMonth;
-	}
-
-	public void setAcessMonth(Long acessMonth) {
-		this.acessMonth = acessMonth;
-	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public String getProductKey() {
-		return productKey;
-	}
-
-	public void setProductKey(String productKey) {
-		this.productKey = productKey;
-	}
-	
 	
 }
