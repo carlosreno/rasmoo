@@ -35,7 +35,7 @@ public class Users {
 	
 	private String cpf;
 	
-	private LocalDate dtSubscription = LocalDate.now();
+	private LocalDate dtSubscription;
 	
 	private LocalDate dtExpiration;
 	

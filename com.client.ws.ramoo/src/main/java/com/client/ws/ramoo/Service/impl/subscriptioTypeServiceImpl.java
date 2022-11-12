@@ -4,11 +4,21 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.client.ws.ramoo.Models.SubscriptionType;
 import com.client.ws.ramoo.Repositories.SubscriptionTypeRepository;
 import com.client.ws.ramoo.Service.subscriptioTypeService;
+import com.client.ws.ramoo.dto.SubscriptionTypeDTO;
+import com.client.ws.ramoo.dto.msgSucessoDTO;
+import com.client.ws.ramoo.exception.NotFoudException;
+import com.client.ws.ramoo.mapper.SubscriptTypeMapper;
+import com.client.ws.ramoo.msgAll.msgSucesso;
+
+import net.bytebuddy.implementation.bytecode.Throw;
 
 @Service
 public class subscriptioTypeServiceImpl implements subscriptioTypeService{
@@ -34,21 +44,29 @@ public class subscriptioTypeServiceImpl implements subscriptioTypeService{
 	}
 
 	@Override
-	public SubscriptionType create(SubscriptionType subscriptionType) {
-		// TODO Auto-generated method stub
-		return subscriptionTypeRepository.save(subscriptionType);
+	public SubscriptionType create(SubscriptionTypeDTO subscriptionTypeDTO ) {
+		return subscriptionTypeRepository.save(SubscriptTypeMapper.fromDtoToEntity(subscriptionTypeDTO));
 	}
 
 	@Override
-	public SubscriptionType update(Long id, SubscriptionType subscriptionType) {
+	public SubscriptionType update(Long id, SubscriptionTypeDTO subscriptionTypeDTO) {
+		subscriptionTypeDTO.setId(id);
+		return subscriptionTypeRepository.save(SubscriptTypeMapper.fromDtoToEntity(subscriptionTypeDTO));
+	}
+
+	@Override
+	public msgSucessoDTO delete(Long id) {
 	
-		return subscriptionTypeRepository.save(null);
-	}
-
-	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
+		try {
+			subscriptionTypeRepository.deleteById(id);
+			
+		} catch (EmptyResultDataAccessException e) {
+			throw new NotFoudException("usuario não existe");
+		}
+			
 		
+		
+		return new msgSucesso().mgsSend("excluido");
 	}
 	
 

@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.client.ws.ramoo.Models.SubscriptionType;
+import com.client.ws.ramoo.dto.SubscriptionTypeDTO;
+import com.client.ws.ramoo.dto.msgSucessoDTO;
 
 @Service
 public interface subscriptioTypeService {
@@ -13,9 +15,11 @@ public interface subscriptioTypeService {
 	
 	SubscriptionType findById(Long id);
 	
-	SubscriptionType create(SubscriptionType subscriptionType);
+	SubscriptionType create(SubscriptionTypeDTO subscriptionTypeDTO);
 	
-	SubscriptionType update(Long id , SubscriptionType subscriptionType);
 	
-	void delete(Long id);
+	msgSucessoDTO delete(Long id);
+
+	SubscriptionType update(Long id, SubscriptionTypeDTO subscriptionTypeDTO);
+
 }
